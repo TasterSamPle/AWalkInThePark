@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://doke3cowall40"]
+
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_fnqvv"]
+[ext_resource type="Texture2D" uid="uid://bnmlu6v61f671" path="res://assets storage/Animals/Dog/Skateboard.png" id="2_24cor"]
+[ext_resource type="Texture2D" uid="uid://b2c5meoel6jt1" path="res://assets storage/Animals/Dog/Dog (1)_0001.png" id="3_0b4y5"]
+[ext_resource type="Texture2D" uid="uid://nffx23dg4sbl" path="res://assets storage/Animals/Dog/Dog (1)_0002.png" id="4_0dkmb"]
+[ext_resource type="AudioStream" uid="uid://5vameqngk3rt" path="res://assets storage/Sounds/Skateboard (2).wav" id="5_mna7i"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v0cdr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_0b4y5")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_0b4y5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0dkmb")
+}],
+"loop": true,
+"name": &"Moving",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f87eo"]
+size = Vector2(10, 40)
+
+[node name="Dog" type="Node2D" groups=["dog"]]
+
+[node name="Dog_base2" type="CharacterBody2D" parent="." groups=["dog"]]
+position = Vector2(752, 616)
+scale = Vector2(2, 2)
+script = ExtResource("1_fnqvv")
+
+[node name="Move" type="CPUParticles2D" parent="Dog_base2"]
+amount = 25
+lifetime = 0.2
+explosiveness = 0.1
+emission_shape = 3
+emission_rect_extents = Vector2(3, 3)
+gravity = Vector2(0, 1000)
+scale_amount_min = 1.3
+scale_amount_max = 1.3
+color = Color(0.196078, 0.196078, 0.184314, 1)
+
+[node name="Skateboard" type="Sprite2D" parent="Dog_base2" groups=["dog"]]
+position = Vector2(0, -4)
+rotation = 0.0174533
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_24cor")
+
+[node name="Dog" type="AnimatedSprite2D" parent="Dog_base2" groups=["dog"]]
+position = Vector2(0, -4)
+rotation = 0.0174533
+scale = Vector2(0.9375, 0.9375)
+sprite_frames = SubResource("SpriteFrames_v0cdr")
+animation = &"Moving"
+
+[node name="Camera2D" type="Camera2D" parent="Dog_base2" groups=["dog"]]
+limit_left = 0
+limit_top = 0
+limit_right = 2000
+limit_bottom = 1000
+
+[node name="dogcollision" type="CollisionShape2D" parent="Dog_base2" groups=["dog"]]
+position = Vector2(-1, -4)
+shape = SubResource("RectangleShape2D_f87eo")
+one_way_collision_margin = 0.0
+
+[node name="Skate" type="AudioStreamPlayer" parent="Dog_base2"]
+stream = ExtResource("5_mna7i")
+pitch_scale = 0.62
+
+[node name="Eat" type="CPUParticles2D" parent="Dog_base2"]
+position = Vector2(-1, -24)
+rotation = 0.785397
+emitting = false
+amount = 25
+lifetime = 0.5
+one_shot = true
+emission_shape = 3
+emission_rect_extents = Vector2(4, 3)
+direction = Vector2(-10, -10)
+spread = 55.0
+gravity = Vector2(0, -10)
+initial_velocity_min = 2.0
+initial_velocity_max = 2.0
+angle_min = -90.0
+angle_max = -90.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color = Color(0.298039, 0.262745, 0.12549, 1)
+
+[connection signal="frame_changed" from="Dog_base2/Dog" to="Dog_base2" method="_on_dog_frame_changed"]

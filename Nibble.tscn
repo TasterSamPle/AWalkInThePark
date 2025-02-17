@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dd6c2jr6rr1tc"]
+
+[ext_resource type="Texture2D" uid="uid://cfprld67ck2a" path="res://assets storage/Treats/treat(B).png" id="1_22eac"]
+[ext_resource type="Script" path="res://Scenes/Treat.gd" id="1_bjnfd"]
+[ext_resource type="AudioStream" uid="uid://bxdqpykcsfqqk" path="res://assets storage/Sounds/Eat-Dog.wav" id="3_eci6n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgkx2"]
+size = Vector2(24, 25.5)
+
+[node name="Treats" type="Node2D"]
+script = ExtResource("1_bjnfd")
+
+[node name="Treat" type="Sprite2D" parent="."]
+position = Vector2(-4.5, 2.5)
+texture = ExtResource("1_22eac")
+script = ExtResource("1_bjnfd")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(528, 592)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-532, -588.75)
+shape = SubResource("RectangleShape2D_pgkx2")
+
+[node name="Eat" type="AudioStreamPlayer" parent="Area2D"]
+stream = ExtResource("3_eci6n")
+volume_db = -10.0
+
+[connection signal="body_entered" from="Area2D" to="Treat" method="_on_area_2d_body_entered"]

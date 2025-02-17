@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://by5frt4nwnrmt"]
+
+[ext_resource type="PackedScene" uid="uid://hvdfstbx1kok" path="res://menu.tscn" id="1_368l1"]
+
+[node name="menu_main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" parent="." instance=ExtResource("1_368l1")]
+
+[node name="Scores" type="Node2D" parent="."]

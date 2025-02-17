@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0ara347bqbuc"]
+
+[ext_resource type="Script" path="res://Scenes/Cat1_base.gd" id="2_udw0m"]
+[ext_resource type="Texture2D" uid="uid://cuptlfcmjs4wo" path="res://assets storage/Animals/Cats/Cat1_0002.png" id="3_6wrpy"]
+[ext_resource type="Texture2D" uid="uid://dne3yblj674ca" path="res://assets storage/Animals/Cats/Cat1_0001.png" id="3_jhbi0"]
+
+[sub_resource type="Curve2D" id="Curve2D_r128o"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1544, 272, 0, 0, 0, 0, 1528, -400, 0, 0, 0, 0, 1136, -400, 0, 0, 0, 0, 1128, -144, 0, 0, 0, 0, 1320, -136, 0, 0, 0, 0, 880, -136, 0, 0, 0, 0, 872, 280, 0, 0, 0, 0, 1128, 272, 0, 0, 0, 0, 1144, 72, 0, 0, 0, 0, 1336, 88, 0, 0, 0, 0, 1352, 272, 0, 0, 0, 0, 472, 280, 0, 0, 0, 0, -72, 280, 0, 0, 0, 0, -80, -8, 0, 0, 0, 0, -208, -8, 0, 0, 0, 0, -216, -528, 0, 0, 0, 0, 88, -520, 0, 0, 0, 0, 72, -16, 0, 0, 0, 0, -192, -8, 0, 0, 0, 0, -192, -520, 0, 0, 0, 0, 464, -528, 0, 0, 0, 0, 448, -16, 0, 0, 0, 0, 88, 0, 0, 0, 0, 0, -56, 0, 0, 0, 0, 0, -96, 288, 0, 0, 0, 0, 448, 280, 0, 0, 0, 0, 480, -520, 0, 0, 0, 0, 880, -528, 0, 0, 0, 0, 1368, -528, 0, 0, 0, 0, 1136, -520, 0, 0, 0, 0, 1128, -16, 0, 0, 0, 0, 1144, 280, 0, 0, 0, 0, 896, 288, 0, 0, 0, 0, 888, -136, 0, 0, 0, 0, 888, -520, 0, 0, 0, 0, 480, -528, 0, 0, 0, 0, 456, -16, 0, 0, 0, 0, 488, 280, 0, 0, 0, 0, 936, 280, 0, 0, 0, 0, 1152, 280, 0, 0, 0, 0, 1360, 280, 0, 0, 0, 0, 1544, 272)
+}
+point_count = 42
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3rego"]
+size = Vector2(18, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_drp1d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_jhbi0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jhbi0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6wrpy")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 3.0
+}]
+
+[node name="Cat" type="Node2D"]
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(280, 616)
+curve = SubResource("Curve2D_r128o")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(1544, 272)
+rotation = -1.5946
+
+[node name="Cat_base" type="CharacterBody2D" parent="Path2D/PathFollow2D"]
+rotation = 1.5708
+script = ExtResource("2_udw0m")
+
+[node name="Area2D" type="Area2D" parent="Path2D/PathFollow2D/Cat_base"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/Cat_base/Area2D"]
+position = Vector2(3, -4)
+shape = SubResource("RectangleShape2D_3rego")
+
+[node name="CatAnim" type="AnimatedSprite2D" parent="Path2D/PathFollow2D/Cat_base"]
+scale = Vector2(-1, -1)
+sprite_frames = SubResource("SpriteFrames_drp1d")
+animation = &"Walk"
+frame_progress = 0.802868
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Path2D/PathFollow2D/Cat_base"]
+position = Vector2(-9.53674e-07, -3.57628e-06)
+shape = SubResource("RectangleShape2D_3rego")
+disabled = true
+
+[connection signal="body_entered" from="Path2D/PathFollow2D/Cat_base/Area2D" to="Path2D/PathFollow2D/Cat_base" method="_on_area_2d_body_entered"]

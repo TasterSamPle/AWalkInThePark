@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://ruqs68ssc43l"]
+
+[ext_resource type="Texture2D" uid="uid://dd1mqsnnus7e6" path="res://assets storage/Menu/Menu screen.png" id="1_bgegv"]
+[ext_resource type="Script" path="res://CanvasLayer2.gd" id="1_f2dw8"]
+[ext_resource type="Texture2D" uid="uid://dfomp40srspb2" path="res://assets storage/Menu/Exit-Button.png" id="2_n3jc2"]
+[ext_resource type="Texture2D" uid="uid://dloogharvos5x" path="res://assets storage/Menu/Exit-Button-Pressed.png" id="3_mba5b"]
+[ext_resource type="Texture2D" uid="uid://cwvfhpwgvqr8c" path="res://assets storage/Menu/Retry Button.png" id="4_x460y"]
+[ext_resource type="Texture2D" uid="uid://iqsn6riatopa" path="res://assets storage/Menu/Retry Button-pressed.png" id="5_ogud1"]
+[ext_resource type="FontFile" uid="uid://bimqw85n6ut06" path="res://assets storage/Dogfiles.otf" id="7_313p6"]
+[ext_resource type="AudioStream" uid="uid://c7yw4setx3od7" path="res://assets storage/Sounds/Menusounds.wav" id="8_v11tg"]
+
+[node name="DeathScreen" type="CanvasLayer"]
+script = ExtResource("1_f2dw8")
+
+[node name="MenuScreen" type="Sprite2D" parent="."]
+position = Vector2(500, 500)
+texture = ExtResource("1_bgegv")
+
+[node name="ExitButton" type="Node2D" parent="."]
+scale = Vector2(5, 5)
+
+[node name="Exit" type="TextureButton" parent="ExitButton"]
+offset_left = 115.2
+offset_top = 134.4
+offset_right = 166.2
+offset_bottom = 165.4
+texture_normal = ExtResource("2_n3jc2")
+texture_pressed = ExtResource("3_mba5b")
+metadata/_edit_use_anchors_ = true
+
+[node name="RestartButton" type="Node2D" parent="."]
+scale = Vector2(5, 5)
+
+[node name="Restart" type="TextureButton" parent="RestartButton"]
+offset_left = 115.2
+offset_top = 83.2
+offset_right = 166.2
+offset_bottom = 114.2
+texture_normal = ExtResource("4_x460y")
+texture_pressed = ExtResource("5_ogud1")
+metadata/_edit_use_anchors_ = true
+
+[node name="GameOver" type="Label" parent="."]
+offset_left = 592.0
+offset_top = 224.0
+offset_right = 820.0
+offset_bottom = 369.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_313p6")
+theme_override_font_sizes/font_size = 75
+text = "Game 
+over"
+
+[node name="Score" type="Label" parent="."]
+offset_left = 384.0
+offset_top = 880.0
+offset_right = 950.0
+offset_bottom = 937.0
+theme_override_fonts/font = ExtResource("7_313p6")
+theme_override_font_sizes/font_size = 60
+text = "FInal score: 500"
+
+[node name="sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_v11tg")
+
+[connection signal="pressed" from="ExitButton/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="RestartButton/Restart" to="." method="_on_restart_pressed"]
